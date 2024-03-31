@@ -7,7 +7,7 @@ using PrettyLogSharp.Settings;
 var customColour = AnsiColour.CreateCustom(171);
 
 // As mentioned above, we can create a custom LogType which can later be used for log formatting
-var customLogType = LogType.CreateCustom("[Custom]", customColour, LogLevel.Information);
+var customLogType = LogType.CreateCustom("[Custom]", customColour, LogLevel.Debug);
 
 // We can also set a custom default LogType for certain LogLevel
 var defaultLogTypes = new LoggerDefaultLogTypes { Debug = customLogType };
@@ -20,6 +20,7 @@ PrettyLogger.Initialize(new LoggerSettings
 {
     DefaultLogTypes = defaultLogTypes,
     FileWriterSettings = fileWriterSettings,
+    LogLevel = LogLevel.Information
 });
 
 // Now, we can start logging!

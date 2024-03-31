@@ -1,6 +1,6 @@
 namespace PrettyLogSharp.Settings;
 
-public class FileWriterSettings
+public sealed class FileWriterSettings
 {
     public bool SaveToFile { get; set; } = true;
     public string SaveDirectoryPath { get; init; } = "./logs/";

@@ -23,7 +23,7 @@ public sealed class LogType
         new("✨ Runtime", AnsiCodes.Colours.Pink, LogLevel.Trace);
     
     public static LogType Debug =>
-        new("\uD83D\uDD27 Debug", AnsiCodes.Colours.Gray, LogLevel.Information);
+        new("\uD83D\uDD27 Debug", AnsiCodes.Colours.Gray, LogLevel.Debug);
     
     public static LogType Network =>
         new("\uD83D\uDD0C Network", AnsiCodes.Colours.Blue, LogLevel.Information);
@@ -40,9 +40,9 @@ public sealed class LogType
     public static LogType Exception =>
         new("\uD83D\uDCA3 Exception", AnsiCodes.Colours.Red, LogLevel.Critical);
     
-    internal static LogType Log =>
+    internal static LogType PrettyLog =>
         new("[PrettyLog]", AnsiCodes.Colours.CutePink, LogLevel.Debug);
 
-    public static LogType CreateCustom(string name, AnsiColour colour, LogLevel logLevel = LogLevel.Information) =>
+    public static LogType CreateCustom(string name, AnsiColour colour, LogLevel logLevel = LogLevel.Debug) =>
         new(name, colour, logLevel);
 }
