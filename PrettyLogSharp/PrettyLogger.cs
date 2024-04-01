@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
 using PrettyLogSharp.Ansi;
+using PrettyLogSharp.Extensions;
 using PrettyLogSharp.Settings;
 
 namespace PrettyLogSharp;
@@ -66,10 +67,12 @@ public sealed class PrettyLogger
         {
             return;
         }
+
+        var currentTime = _settings.UseUtc ? DateTimeOffset.UtcNow : DateTimeOffset.Now;
         
-        _logAction(GetFormattedMessage(message, logType));
+        _logAction(GetFormattedMessage(message, logType, currentTime));
         
-        _fileWriter?.WriteLog(message, logType);
+        _fileWriter?.WriteLog(message, logType, currentTime);
     }
 
     private void LogInternal(string message, LogLevel logLevel)
@@ -126,26 +129,37 @@ public sealed class PrettyLogger
             return;
         }
         
-        Console.WriteLine(Instance.GetFormattedMessage(message, LogType.Information));
+        var currentTime = Instance._settings.UseUtc ? DateTimeOffset.UtcNow : DateTimeOffset.Now;
+        Instance._logAction(Instance.GetFormattedMessage(message, LogType.Information, currentTime));
     }
 
     public static void Initialize() => Instance = new PrettyLogger();
     public static void Initialize(LoggerSettings settings) => Instance = new PrettyLogger(settings);
 
-    private string GetFormattedMessage(string message, LogType logType)
+    private string GetFormattedMessage(string message, LogType logType, DateTimeOffset dateTime)
     {
         StringBuilder builder = new();
         switch (_settings.LoggerStyle)
         {
             case LoggerStyle.TextOnly:
+            case LoggerStyle.TextOnlyWithTime:
                 builder.Append(logType.Colour.Foreground);
+                if (_settings.LoggerStyle.IsWithTime())
+                {
+                    builder.AppendDateTime(dateTime, _settings.TimeFormat);
+                }
                 builder.Append(logType.Name);
                 builder.Append(": ");
                 break;
 
             case LoggerStyle.Prefix:
+            case LoggerStyle.PrefixWithTime:
                 builder.Append(logType.Colour.Background);
                 builder.Append(AnsiCodes.Colours.Black.Foreground);
+                if (_settings.LoggerStyle.IsWithTime())
+                {
+                    builder.AppendDateTime(dateTime, _settings.TimeFormat);
+                }
                 builder.Append(logType.Name);
                 builder.Append(':');
                 builder.Append(AnsiCodes.Reset);
@@ -153,17 +167,27 @@ public sealed class PrettyLogger
                 break;
 
             case LoggerStyle.Suffix:
+            case LoggerStyle.SuffixWithTime:
                 builder.Append(logType.Colour.Foreground);
+                if (_settings.LoggerStyle.IsWithTime())
+                {
+                    builder.AppendDateTime(dateTime, _settings.TimeFormat);
+                }
                 builder.Append(logType.Name);
                 builder.Append(": ");
                 builder.Append(logType.Colour.Background);
                 builder.Append(AnsiCodes.Colours.Black.Foreground);
                 break;
-
+            
             case LoggerStyle.Full:
+            case LoggerStyle.FullWithTime:
             default:
                 builder.Append(logType.Colour.Background);
                 builder.Append(AnsiCodes.Colours.Black.Foreground);
+                if (_settings.LoggerStyle.IsWithTime())
+                {
+                    builder.AppendDateTime(dateTime, _settings.TimeFormat);
+                }
                 builder.Append(logType.Name);
                 builder.Append(": ");
                 break;
