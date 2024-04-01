@@ -1,9 +1,12 @@
-namespace PrettyLogSharp.Ansi;
+namespace PrettyLogSharp.ANSI;
 
-public static class AnsiCodes
+public static class Ansi
 {
-    public const string Reset = "\u001B[0m";
-
+    public static class Other
+    {
+        public const string Reset = "\u001B[0m";
+    }
+    
     public static class Colours
     {
         public static AnsiColour Black => new(232);

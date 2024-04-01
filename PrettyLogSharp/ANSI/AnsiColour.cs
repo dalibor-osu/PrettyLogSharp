@@ -1,4 +1,4 @@
-namespace PrettyLogSharp.Ansi;
+namespace PrettyLogSharp.ANSI;
 
 public class AnsiColour
 {

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
-using PrettyLogSharp.Ansi;
-using static PrettyLogSharp.Ansi.AnsiCodes.Colours;
+using PrettyLogSharp.ANSI;
+using static PrettyLogSharp.ANSI.Ansi.Colours;
 
 namespace PrettyLogSharp;
 

@@ -1,6 +1,6 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
-using PrettyLogSharp.Ansi;
+using PrettyLogSharp.ANSI;
 using PrettyLogSharp.Extensions;
 using PrettyLogSharp.Settings;
 
@@ -179,7 +179,7 @@ public sealed class PrettyLogger
                 }
                 builder.Append(logType.Name);
                 builder.Append(':');
-                builder.Append(AnsiCodes.Reset);
+                builder.Append(Ansi.Other.Reset);
                 builder.Append(' ');
                 break;
 
@@ -211,7 +211,7 @@ public sealed class PrettyLogger
         }
 
         builder.Append(message);
-        builder.Append(AnsiCodes.Reset);
+        builder.Append(Ansi.Other.Reset);
         return builder.ToString();
     }
 }

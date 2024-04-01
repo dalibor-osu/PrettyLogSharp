@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using PrettyLogSharp;
-using PrettyLogSharp.Ansi;
+using PrettyLogSharp.ANSI;
 using PrettyLogSharp.Settings;
 
 // We can create a custom colour which can be used for out custom LogType
 var customColour = AnsiColour.CreateCustom(171);
-var customColourPair = new AnsiColourPair(customColour, AnsiCodes.Colours.Black);
+var customColourPair = new AnsiColourPair(customColour, Ansi.Colours.Black);
 
 // As mentioned above, we can create a custom LogType which can later be used for log formatting
 var customLogType = LogType.CreateCustom("[Custom]", customColourPair, LogLevel.Debug);
