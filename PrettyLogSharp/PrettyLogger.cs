@@ -29,6 +29,26 @@ public sealed class PrettyLogger
     {
     }
 
+    public static void Initialize()
+    {
+        if (Instance is { _settings.AllowInstanceReinitialization: false })
+        {
+            LogPrettyLog("Instance was already initialized and reinitialization is not allowed!");    
+        }
+        
+        Instance = new PrettyLogger();
+    }
+
+    public static void Initialize(LoggerSettings settings)
+    {
+        if (Instance is { _settings.AllowInstanceReinitialization: false })
+        {
+            LogPrettyLog("Instance was already initialized and reinitialization is not allowed!");    
+        }
+        
+        Instance = new PrettyLogger(settings);
+    }
+
     public static void Log(string message, LogType? logType = null)
     {
         if (Instance == null)
@@ -133,9 +153,6 @@ public sealed class PrettyLogger
         Instance._logAction(Instance.GetFormattedMessage(message, LogType.Information, currentTime));
     }
 
-    public static void Initialize() => Instance = new PrettyLogger();
-    public static void Initialize(LoggerSettings settings) => Instance = new PrettyLogger(settings);
-
     private string GetFormattedMessage(string message, LogType logType, DateTimeOffset dateTime)
     {
         StringBuilder builder = new();
@@ -143,7 +160,7 @@ public sealed class PrettyLogger
         {
             case LoggerStyle.TextOnly:
             case LoggerStyle.TextOnlyWithTime:
-                builder.Append(logType.Colour.Foreground);
+                builder.Append(logType.Colours.Foreground);
                 if (_settings.LoggerStyle.IsWithTime())
                 {
                     builder.AppendDateTime(dateTime, _settings.TimeFormat);
@@ -154,8 +171,8 @@ public sealed class PrettyLogger
 
             case LoggerStyle.Prefix:
             case LoggerStyle.PrefixWithTime:
-                builder.Append(logType.Colour.Background);
-                builder.Append(AnsiCodes.Colours.Black.Foreground);
+                builder.Append(logType.Colours.Background);
+                builder.Append(logType.Colours.Foreground);
                 if (_settings.LoggerStyle.IsWithTime())
                 {
                     builder.AppendDateTime(dateTime, _settings.TimeFormat);
@@ -168,22 +185,22 @@ public sealed class PrettyLogger
 
             case LoggerStyle.Suffix:
             case LoggerStyle.SuffixWithTime:
-                builder.Append(logType.Colour.Foreground);
+                builder.Append(logType.Colours.Foreground);
                 if (_settings.LoggerStyle.IsWithTime())
                 {
                     builder.AppendDateTime(dateTime, _settings.TimeFormat);
                 }
                 builder.Append(logType.Name);
                 builder.Append(": ");
-                builder.Append(logType.Colour.Background);
-                builder.Append(AnsiCodes.Colours.Black.Foreground);
+                builder.Append(logType.Colours.Background);
+                builder.Append(logType.Colours.Foreground);
                 break;
             
             case LoggerStyle.Full:
             case LoggerStyle.FullWithTime:
             default:
-                builder.Append(logType.Colour.Background);
-                builder.Append(AnsiCodes.Colours.Black.Foreground);
+                builder.Append(logType.Colours.Background);
+                builder.Append(logType.Colours.Foreground);
                 if (_settings.LoggerStyle.IsWithTime())
                 {
                     builder.AppendDateTime(dateTime, _settings.TimeFormat);

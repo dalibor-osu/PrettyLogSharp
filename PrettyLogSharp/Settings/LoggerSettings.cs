@@ -10,6 +10,7 @@ public sealed record LoggerSettings
     public Action<string>? CustomLogAction { get; init; } = null;
     public bool UseUtc { get; init; } = false;
     public string TimeFormat { get; init; } = "[HH:mm:ss:fff] ";
+    public bool AllowInstanceReinitialization { get; init; } = false;
     
     public LoggerDefaultLogTypes DefaultLogTypes { get; init; } = new();
     public FileWriterSettings FileWriterSettings { get; init; } = new();

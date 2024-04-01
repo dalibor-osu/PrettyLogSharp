@@ -1,48 +1,49 @@
 using Microsoft.Extensions.Logging;
 using PrettyLogSharp.Ansi;
+using static PrettyLogSharp.Ansi.AnsiCodes.Colours;
 
 namespace PrettyLogSharp;
 
 public sealed class LogType
 {
     public string Name { get; private set; }
-    public AnsiColour Colour { get; private set; }
+    public AnsiColourPair Colours { get; private set; }
     public LogLevel LogLevel { get; private set; }
 
-    private LogType(string name, AnsiColour colour, LogLevel logLevel)
+    private LogType(string name, AnsiColourPair colours, LogLevel logLevel)
     {
         Name = name;
-        Colour = colour;
+        Colours = colours;
         LogLevel = logLevel;
     }
     
     public static LogType Information =>
-        new("ℹ\uFE0F Information", AnsiCodes.Colours.Cyan, LogLevel.Information);
+        new("ℹ\uFE0F Information", new AnsiColourPair(Black, Cyan), LogLevel.Information);
     
     public static LogType Runtime =>
-        new("✨ Runtime", AnsiCodes.Colours.Pink, LogLevel.Trace);
+        new("✨ Runtime", new AnsiColourPair(Black, Pink), LogLevel.Trace);
     
     public static LogType Debug =>
-        new("\uD83D\uDD27 Debug", AnsiCodes.Colours.Gray, LogLevel.Debug);
+        new("\uD83D\uDD27 Debug", new AnsiColourPair(Black, Gray), LogLevel.Debug);
     
     public static LogType Network =>
-        new("\uD83D\uDD0C Network", AnsiCodes.Colours.Blue, LogLevel.Information);
+        new("\uD83D\uDD0C Network", new AnsiColourPair(Black, Blue), LogLevel.Information);
     
     public static LogType Success =>
-        new("✔\uFE0F Success", AnsiCodes.Colours.Green, LogLevel.Information);
+        new("✔\uFE0F Success", new AnsiColourPair(Black, Green), LogLevel.Information);
     
     public static LogType Warning =>
-        new("⚠\uFE0F Warning", AnsiCodes.Colours.Yellow, LogLevel.Warning);
+        new("⚠\uFE0F Warning", new AnsiColourPair(Black, Yellow), LogLevel.Warning);
     
     public static LogType Error =>
-        new("⛔ Error", AnsiCodes.Colours.Red, LogLevel.Error);
+        new("⛔ Error", new AnsiColourPair(Black, Red), LogLevel.Error);
     
     public static LogType Exception =>
-        new("\uD83D\uDCA3 Exception", AnsiCodes.Colours.Red, LogLevel.Critical);
+        new("\uD83D\uDCA3 Exception", new AnsiColourPair(Black, Red), LogLevel.Critical);
     
-    internal static LogType PrettyLog =>
-        new("[PrettyLog]", AnsiCodes.Colours.CutePink, LogLevel.Debug);
+    internal static LogType PrettyLog => 
+        new("[PrettyLog]", new AnsiColourPair(Black, CutePink), LogLevel.Debug);
 
-    public static LogType CreateCustom(string name, AnsiColour colour, LogLevel logLevel = LogLevel.Debug) =>
-        new(name, colour, logLevel);
+    public static LogType CreateCustom(string name, AnsiColourPair colours, LogLevel logLevel = LogLevel.Debug) =>
+        new(name, colours, logLevel);
 }

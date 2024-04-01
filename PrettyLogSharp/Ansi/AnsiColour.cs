@@ -5,7 +5,6 @@ public class AnsiColour
     public string Foreground { get; internal init; }
     public string Background { get; internal init; }
     
-    
     internal AnsiColour(int code)
     {
         Foreground = $"\u001B[38;5;{code}m";
