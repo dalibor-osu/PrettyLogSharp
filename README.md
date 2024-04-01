@@ -46,6 +46,16 @@ catch (Exception exception)
 
 <img width="793" alt="image" src="https://github.com/dalibor-osu/PrettyLogSharp/assets/77931392/b498004f-8a11-4822-b43e-dcfc6bbcd143">
 
+**Quick tip:**
+
+If you don't want to type "PrettyLogger" in front of every log call, you can use the static version of the using keyword!
+
+```csharp
+using static PrettyLogSharp.PrettyLogger;
+...
+Log("This is shorter!");
+```
+
 ## Logger settings
 There are 3 main categories of logger settings. Customizing the general settings, file logging and default LogTypes. Let's take a look at how you can use them and make your logs even more ✨ 𝙥𝙧𝙚𝙩𝙩𝙮 ✨.
 Keep in mind we won't go through all customizable settings. If you'd like to check out what can be customized, please refer to a class that is linked in every section. These linked classes are very simple
