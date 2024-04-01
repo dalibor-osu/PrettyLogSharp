@@ -15,7 +15,7 @@ internal sealed class PrettyFileWriter
         _settings = settings;
     }
 
-    public void WriteLog(string message, LogType logType, DateTimeOffset dateTime)
+    internal void WriteLog(string message, LogType logType, DateTimeOffset dateTime)
     {
         var currentTime = _settings.UseUtc ? dateTime.ToUniversalTime() : dateTime.ToLocalTime();
         string fileName = GetFileNameForDateTime(currentTime);

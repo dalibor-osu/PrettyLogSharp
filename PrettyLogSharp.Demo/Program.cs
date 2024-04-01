@@ -22,7 +22,7 @@ PrettyLogger.Initialize(new LoggerSettings
     DefaultLogTypes = defaultLogTypes,
     FileWriterSettings = fileWriterSettings,
     LogLevel = LogLevel.Trace,
-    LoggerStyle = LoggerStyle.FullWithTime
+    LoggerStyle = LoggerStyle.Prefix
 });
 
 // Now, we can start logging!

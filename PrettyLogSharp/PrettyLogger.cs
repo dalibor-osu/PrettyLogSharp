@@ -6,6 +6,9 @@ using PrettyLogSharp.Settings;
 
 namespace PrettyLogSharp;
 
+/// <summary>
+/// Main class used for logging with PrettyLog.
+/// </summary>
 public sealed class PrettyLogger
 {
     private static PrettyLogger? Instance { get; set; }
@@ -29,6 +32,9 @@ public sealed class PrettyLogger
     {
     }
 
+    /// <summary>
+    /// Initializes PrettyLog with default values.
+    /// </summary>
     public static void Initialize()
     {
         if (Instance is { _settings.AllowInstanceReinitialization: false })
@@ -39,6 +45,10 @@ public sealed class PrettyLogger
         Instance = new PrettyLogger();
     }
 
+    /// <summary>
+    /// Initializes PrettyLog with specified <paramref name="settings"/>.
+    /// </summary>
+    /// <param name="settings">Settings to be used by PrettyLog</param>
     public static void Initialize(LoggerSettings settings)
     {
         if (Instance is { _settings.AllowInstanceReinitialization: false })
@@ -49,6 +59,12 @@ public sealed class PrettyLogger
         Instance = new PrettyLogger(settings);
     }
 
+    /// <summary>
+    /// Logs a message with a certain log type.
+    /// </summary>
+    /// <param name="message">Text message to be logged.</param>
+    /// <param name="logType">Log type of the message.
+    /// When left null, default Information type from <see cref="LoggerDefaultLogTypes"/> is used.</param>
     public static void Log(string message, LogType? logType = null)
     {
         if (Instance == null)
@@ -59,6 +75,11 @@ public sealed class PrettyLogger
         Instance!.LogInternal(message, logType);
     }
 
+    /// <summary>
+    /// Logs a message with certain log level. <see cref="LogType"/> set in <see cref="LoggerDefaultLogTypes"/> is used.
+    /// </summary>
+    /// <param name="message">Text message to be logged.</param>
+    /// <param name="logLevel">Log level of the message</param>
     public static void Log(string message, LogLevel logLevel)
     {
         if (Instance == null)
@@ -69,6 +90,12 @@ public sealed class PrettyLogger
         Instance!.LogInternal(message, logLevel);
     }
 
+    /// <summary>
+    /// Logs an exception message. You can optionally specify a <see cref="LogType"/> of the log,
+    /// otherwise the default one for "Error" specified in <see cref="LoggerDefaultLogTypes"/> is used.
+    /// </summary>
+    /// <param name="exception">Text message to be logged.</param>
+    /// <param name="logType">Optional type of the log</param>
     public static void Log(Exception exception, LogType? logType = null)
     {
         if (Instance == null)
@@ -81,7 +108,7 @@ public sealed class PrettyLogger
 
     private void LogInternal(string message, LogType? logType = null)
     {
-        logType ??= LogType.Information;
+        logType ??= _settings.DefaultLogTypes.Information;
 
         if (logType.LogLevel < _settings.LogLevel)
         {
@@ -126,7 +153,7 @@ public sealed class PrettyLogger
 
     private void LogInternal(Exception exception, LogType? logType = null)
     {
-        logType ??= LogType.Exception;
+        logType ??= _settings.DefaultLogTypes.Error;
         LogInternal(exception.Message, logType);
 
         if (exception.StackTrace == null)

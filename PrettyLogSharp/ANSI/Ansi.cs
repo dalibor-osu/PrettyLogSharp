@@ -1,12 +1,21 @@
 namespace PrettyLogSharp.ANSI;
 
+/// <summary>
+/// Static helper class for default ANSI terminal values which contains Other and Colours sub-classes.
+/// </summary>
 public static class Ansi
 {
+    /// <summary>
+    /// Helper class for various ANSI terminal codes
+    /// </summary>
     public static class Other
     {
         public const string Reset = "\u001B[0m";
     }
     
+    /// <summary>
+    /// Helper class for various ANSI terminal pre-defined colours
+    /// </summary>
     public static class Colours
     {
         public static AnsiColour Black => new(232);
