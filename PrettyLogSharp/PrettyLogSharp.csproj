@@ -3,13 +3,23 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net8.0</TargetFramework>
+        <PackageId>PrettyLog</PackageId>
+        <Version>1.0.0-alpha</Version>
+        <Authors>dalibor-osu</Authors>
+        <Product>PrettyLog</Product>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>PrettyLogSharp</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageDescription>Logging library for C# and .NET that makes your logs look more ✨ 𝙥𝙧𝙚𝙩𝙩𝙮 ✨</PackageDescription>
+        <RepositoryUrl>https://github.com/dalibor-osu/PrettyLogSharp</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

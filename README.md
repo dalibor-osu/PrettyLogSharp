@@ -2,7 +2,9 @@
 A C# logging library focused on readability in console. PrettyLog takes advantage of ANSI color codes to make your logs look ✨ pretty ✨. This whole project is inspired by Kotlin version of [PrettyLog](https://github.com/LukynkaCZE/PrettyLog) made by [LukynkaCZE](https://github.com/LukynkaCZE).
 
 ## Installation
-WIP
+Go to your project's directory and run the following command:
+
+```dotnet add package PrettyLog --version 1.0.0-alpha```
 
 ## Logging
 After installation, it's very simple to just start logging! All you need to do is call the `PrettyLogger.Log(string message, LogType logType)` static method. `LogType` parameter is optional. When it's not set
